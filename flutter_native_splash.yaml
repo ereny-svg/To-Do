@@ -1,6 +1,6 @@
 flutter_native_splash:
+  image: assets/images/splashlogo.png
   color: "#DFECDB"
-  image: assets/images/
 
   #color_dark: "#042a49"
   #image_dark: assets/splash-invert.png
