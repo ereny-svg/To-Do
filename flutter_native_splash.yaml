@@ -6,7 +6,7 @@ flutter_native_splash:
   #image_dark: assets/splash-invert.png
 
   android_12:
-    image: assets/images/Group 12.png
+    image: assets/images/Group 21.png
     color: "#DFECDB"
 
     #image_dark: assets/android12splash-invert.png
