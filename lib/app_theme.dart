@@ -11,6 +11,13 @@ class AppTheme {
   static const Color red = Color(0xFFEC4B4B);
 
   static ThemeData lightTheme = ThemeData(
+    textTheme: const TextTheme(
+      bodySmall: TextStyle(fontSize: 22,fontWeight: FontWeight.bold,color: white),
+      titleLarge: TextStyle(fontSize: 20,fontWeight: FontWeight.w400,color: black),
+      titleMedium: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,color: black),
+      titleSmall: TextStyle(fontSize: 14,fontWeight: FontWeight.w400,color: black),
+      labelLarge: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: primaryLight),
+    ),
       primaryColor: primaryLight,
       scaffoldBackgroundColor: backgroundLight,
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
