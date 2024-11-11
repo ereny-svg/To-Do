@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo/firebase_functions.dart';
 import 'package:todo/models/taskmodel.dart';
 import 'package:todo/widgets/default_elevated_button.dart';
 import 'package:todo/widgets/default_text_form_field.dart';
@@ -79,10 +80,10 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                           initialDate: selecteddate,
                           firstDate: DateTime.now(),
                           lastDate: DateTime.now().add(Duration(days: 365)));
-                      if (datetime != null) {
+                      if (datetime != null && selecteddate != datetime) {
                         selecteddate = datetime;
+                        setState(() {});
                       }
-                      setState(() {});
                     },
                     child: Text(dateFormat.format(selecteddate)))),
             const SizedBox(
@@ -106,8 +107,14 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         title: titlecontroller.text,
         description: descriptioncontroller.text,
         date: selecteddate);
+    FirebaseFunctions.addTaskToFirestore(task).timeout(
+      Duration(milliseconds: 100),
+      onTimeout: () {
+        Navigator.of(context).pop();
+        
+      },
+    ).catchError((error) {
+      print('error');
+    });
   }
 }
-
-
-
