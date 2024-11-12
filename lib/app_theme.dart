@@ -11,7 +11,14 @@ class AppTheme {
   static const Color red = Color(0xFFEC4B4B);
 
   static ThemeData lightTheme = ThemeData(
-    elevatedButtonTheme: ElevatedButtonThemeData(style: ElevatedButton.styleFrom(backgroundColor:primaryLight )),
+      textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(foregroundColor: primaryLight)),
+      appBarTheme: AppBarTheme(
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(backgroundColor: primaryLight)),
       textTheme: const TextTheme(
         bodySmall:
             TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: white),

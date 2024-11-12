@@ -5,6 +5,8 @@ class SettingTap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(child: Text('Settings'),);
+    return Center(
+      child: Text('Settings'),
+    );
   }
 }
