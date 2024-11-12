@@ -25,4 +25,9 @@ class FirebaseFunctions {
         )
         .toList();
   }
+
+  static Future<void> deleteTaskFromFirestore(String taskId) async {
+    CollectionReference<TaskModel> tasksCollection = getTasksCollection();
+    return tasksCollection.doc(taskId).delete();
+  }
 }
