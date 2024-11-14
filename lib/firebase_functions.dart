@@ -30,4 +30,22 @@ class FirebaseFunctions {
     CollectionReference<TaskModel> tasksCollection = getTasksCollection();
     return tasksCollection.doc(taskId).delete();
   }
+
+  static Future<void> IsDoneTaskFromFirestore(
+      String taskId, bool isdone) async {
+    CollectionReference<TaskModel> tasksCollection = getTasksCollection();
+    return tasksCollection.doc(taskId).update({
+      'isDone': isdone,
+    });
+  }
+
+  static Future<void> UpdateTaskFromFirestore(
+      String taskId, String title, String description, DateTime date) async {
+    CollectionReference<TaskModel> tasksCollection = getTasksCollection();
+    return tasksCollection.doc(taskId).update({
+      'title': title,
+      'description': description,
+      'date': Timestamp.fromDate(date),
+    });
+  }
 }
