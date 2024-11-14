@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/app_theme.dart';
 import 'package:todo/auth/register_screen.dart';
+import 'package:todo/taps/setting/setting_provider.dart';
 import 'package:todo/widgets/default_elevated_button.dart';
 import 'package:todo/widgets/default_text_form_field.dart';
 
@@ -16,6 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider=Provider.of<SettingProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Login'),
@@ -35,6 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     return null;
                   },
                   controller: emailController,
+                  
                   hinttext: 'Email'),
               const SizedBox(
                 height: 16,
@@ -48,6 +53,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   isPassword: true,
                   controller: PasswordController,
+                   
                   hinttext: 'Password'),
               const SizedBox(
                 height: 32,

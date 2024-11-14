@@ -1,0 +1,14 @@
+{
+    "settings": "الاعدادات",
+    "language": "اللغة",
+    "mode": "المظهر",
+    "todolist": "قائمة المهام",
+    "done": "منجز",
+    "add": "اضافة",
+    "addnewtask": "اضافة مهمة جديده",
+    "updatetask": "تحديث المهمه",
+    "tasktitle": "ادخل عنوان المهمه",
+    "taskdescription": "ادخل وصف المهمه",
+    "selectdate": "اختر التاريخ",
+    "savechanges": "حفظ التغيرات"
+}

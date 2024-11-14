@@ -4,10 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
 import 'package:todo/firebase_functions.dart';
 import 'package:todo/models/taskmodel.dart';
+import 'package:todo/taps/setting/setting_provider.dart';
 import 'package:todo/taps/tasks_provider.dart';
 import 'package:todo/widgets/default_elevated_button.dart';
 import 'package:todo/widgets/default_text_form_field.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddTaskBottomSheet extends StatefulWidget {
   const AddTaskBottomSheet({super.key});
@@ -24,6 +26,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
   DateFormat dateFormat = DateFormat('dd/MM/yyyy');
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     double height = MediaQuery.of(context).size.height;
     return Padding(
       padding:
@@ -32,31 +35,38 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
         height: height * 0.5,
         padding: EdgeInsets.all(20),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-          color: AppTheme.white,
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15), topRight: Radius.circular(15)),
+          color: settingProvider.themeMode == ThemeMode.light
+              ? AppTheme.white
+              : AppTheme.darkblue,
         ),
         child: Form(
           key: formKey,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Center(
-              child: Text(
-                'Add New Task',
-                style: Theme.of(context).textTheme.titleMedium,
-              ),
+              child: Text(AppLocalizations.of(context)!.addnewtask,
+                  style: Theme.of(context).textTheme.titleMedium),
             ),
             const SizedBox(
               height: 16,
             ),
             DefaultTextFormField(
-                validator: (value) {
-                  if (value == null || value.trim().isEmpty) {
-                    return 'Please enter task title';
-                  }
-                  return null;
-                },
-                controller: titlecontroller,
-                hinttext: 'Enter Task Title'),
+              validator: (value) {
+                if (value == null || value.trim().isEmpty) {
+                  return 'Please enter task title';
+                }
+                return null;
+              },
+              controller: titlecontroller,
+              textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+                    color: settingProvider.themeMode == ThemeMode.light
+                        ? AppTheme.black
+                        : AppTheme.grey,
+                  ),
+              hinttext: AppLocalizations.of(context)!.tasktitle,
+            ),
             const SizedBox(
               height: 16,
             ),
@@ -68,13 +78,18 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                   return null;
                 },
                 controller: descriptioncontroller,
-                hinttext: 'Enter Task Description'),
+                textStyle: Theme.of(context).textTheme.titleMedium!.copyWith(
+                      color: settingProvider.themeMode == ThemeMode.light
+                          ? AppTheme.black
+                          : AppTheme.grey,
+                    ),
+                hinttext: AppLocalizations.of(context)!.taskdescription),
             const SizedBox(
               height: 16,
             ),
             Center(
               child: Text(
-                'Select Date',
+                AppLocalizations.of(context)!.selectdate,
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
@@ -95,12 +110,19 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
                         setState(() {});
                       }
                     },
-                    child: Text(dateFormat.format(selecteddate)))),
+                    child: Text(
+                      dateFormat.format(selecteddate),
+                      style: Theme.of(context).textTheme.titleMedium!.copyWith(
+                            color: settingProvider.themeMode == ThemeMode.light
+                                ? AppTheme.black
+                                : AppTheme.grey,
+                          ),
+                    ))),
             const SizedBox(
               height: 32,
             ),
             DefaultElevatedButton(
-                text: 'Add',
+                text: AppLocalizations.of(context)!.add,
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
                     AddTask();

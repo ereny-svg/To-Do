@@ -1,0 +1,15 @@
+{
+    "settings": "Settings",
+    "language": "Language",
+    "mode": "Mode",
+    "todolist": "To Do List",
+    "done": "Done!",
+    "add": "Add",
+    "addnewtask": "Add New Task",
+    "updatetask": "Edit Task",
+    "tasktitle": "Enter Task Title",
+    "taskdescription": "Enter Task Description",
+    "selectdate": "Select Date",
+    "savechanges":"Save Changes"
+   
+}

@@ -9,11 +9,11 @@ class AppTheme {
   static const Color grey = Color(0xFFC8C9CB);
   static const Color green = Color(0xFF61E757);
   static const Color red = Color(0xFFEC4B4B);
-
+  static const Color darkblue = Color(0xFF141922);
   static ThemeData lightTheme = ThemeData(
       textButtonTheme: TextButtonThemeData(
           style: TextButton.styleFrom(foregroundColor: primaryLight)),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         backgroundColor: Colors.transparent,
         centerTitle: true,
       ),
@@ -44,5 +44,39 @@ class AppTheme {
           backgroundColor: primaryLight,
           foregroundColor: white,
           shape: CircleBorder(side: BorderSide(color: white, width: 4))));
-  static ThemeData darkTheme = ThemeData();
+
+  static ThemeData darkTheme = ThemeData(
+      textButtonTheme: TextButtonThemeData(
+          style: TextButton.styleFrom(foregroundColor: primaryLight)),
+      appBarTheme: const AppBarTheme(
+        backgroundColor: Colors.transparent,
+        centerTitle: true,
+      ),
+      elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(backgroundColor: primaryLight)),
+      textTheme: const TextTheme(
+        bodySmall: TextStyle(
+            fontSize: 22, fontWeight: FontWeight.bold, color: backgroundDark),
+        titleLarge:
+            TextStyle(fontSize: 20, fontWeight: FontWeight.w500, color: grey),
+        titleMedium:
+            TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: white),
+        titleSmall:
+            TextStyle(fontSize: 14, fontWeight: FontWeight.w400, color: white),
+        labelLarge:
+            TextStyle(fontSize: 15, fontWeight: FontWeight.bold, color: white),
+      ),
+      primaryColor: primaryLight,
+      scaffoldBackgroundColor: backgroundDark,
+      bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+          type: BottomNavigationBarType.fixed,
+          backgroundColor: darkblue,
+          selectedItemColor: primaryLight,
+          unselectedItemColor: grey,
+          showSelectedLabels: false,
+          showUnselectedLabels: false),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: primaryLight,
+          foregroundColor: white,
+          shape: CircleBorder(side: BorderSide(color: darkblue, width: 4))));
 }
