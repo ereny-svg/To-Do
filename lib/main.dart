@@ -6,6 +6,7 @@ import 'package:todo/app_theme.dart';
 import 'package:todo/auth/login_screen.dart';
 import 'package:todo/auth/register_screen.dart';
 import 'package:todo/home_screen.dart';
+import 'package:todo/taps/tasks/update_task.dart';
 import 'package:todo/taps/tasks_provider.dart';
 
 Future<void> main() async {
@@ -27,6 +28,7 @@ class TodoApp extends StatelessWidget {
         HomeScreen.routename: (_) => HomeScreen(),
         LoginScreen.routeName: (_) => LoginScreen(),
         RegisterScreen.routeName: (_) => RegisterScreen(),
+        UpdateTask.routename: (_) => UpdateTask(),
       },
       initialRoute: HomeScreen.routename,
       theme: AppTheme.lightTheme,
