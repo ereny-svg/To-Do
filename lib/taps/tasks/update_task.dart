@@ -1,14 +1,14 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
 import 'package:todo/firebase_functions.dart';
-import 'package:todo/models/taskmodel.dart';
+import 'package:todo/taps/setting/setting_provider.dart';
 import 'package:todo/taps/tasks_provider.dart';
 import 'package:todo/widgets/default_elevated_button.dart';
 import 'package:todo/widgets/default_text_form_field.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UpdateTask extends StatefulWidget {
   static const String routename = '/update';
@@ -27,13 +27,14 @@ class _UpdateTaskState extends State<UpdateTask> {
   DateFormat dateFormat = DateFormat('dd/MM/yyyy');
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     final args =
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     if (args != null) {
       taskId = args['id'];
-      titlecontroller.text=args['taskTitle'];
-      descriptioncontroller.text=args['taskDescription'];
-      selecteddate=args['date'];
+      titlecontroller.text = args['taskTitle'];
+      descriptioncontroller.text = args['taskDescription'];
+      selecteddate = args['date'];
     }
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -41,7 +42,7 @@ class _UpdateTaskState extends State<UpdateTask> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'To Do List',
+          AppLocalizations.of(context)!.todolist,
           style: theme.textTheme.bodySmall,
         ),
         centerTitle: false,
@@ -63,7 +64,9 @@ class _UpdateTaskState extends State<UpdateTask> {
               padding: EdgeInsets.all(20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15),
-                color: AppTheme.white,
+                color: settingProvider.themeMode == ThemeMode.light
+                    ? AppTheme.white
+                    : AppTheme.darkblue,
               ),
               child: Form(
                 key: formKey,
@@ -72,7 +75,7 @@ class _UpdateTaskState extends State<UpdateTask> {
                     children: [
                       Center(
                         child: Text(
-                          'Edit Task',
+                          AppLocalizations.of(context)!.updatetask,
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                       ),
@@ -87,6 +90,15 @@ class _UpdateTaskState extends State<UpdateTask> {
                             return null;
                           },
                           controller: titlecontroller,
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                color:
+                                    settingProvider.themeMode == ThemeMode.light
+                                        ? AppTheme.black
+                                        : AppTheme.white,
+                              ),
                           hinttext: 'This is title'),
                       const SizedBox(
                         height: 31,
@@ -99,12 +111,21 @@ class _UpdateTaskState extends State<UpdateTask> {
                             return null;
                           },
                           controller: descriptioncontroller,
+                          textStyle: Theme.of(context)
+                              .textTheme
+                              .titleMedium!
+                              .copyWith(
+                                color:
+                                    settingProvider.themeMode == ThemeMode.light
+                                        ? AppTheme.black
+                                        : AppTheme.white,
+                              ),
                           hinttext: 'Task details'),
                       const SizedBox(
                         height: 31,
                       ),
                       Text(
-                        'Select Date',
+                        AppLocalizations.of(context)!.selectdate,
                         style: Theme.of(context).textTheme.titleLarge,
                       ),
                       const SizedBox(
@@ -127,12 +148,20 @@ class _UpdateTaskState extends State<UpdateTask> {
                                   setState(() {});
                                 }
                               },
-                              child: Text(dateFormat.format(selecteddate)))),
+                              child: Text(
+                                dateFormat.format(selecteddate),
+                                style: TextStyle(
+                                  color: settingProvider.themeMode ==
+                                          ThemeMode.light
+                                      ? AppTheme.black
+                                      : AppTheme.white,
+                                ),
+                              ))),
                       const SizedBox(
                         height: 115,
                       ),
                       DefaultElevatedButton(
-                          text: 'Save Changes',
+                          text: AppLocalizations.of(context)!.savechanges,
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
                               FirebaseFunctions.UpdateTaskFromFirestore(

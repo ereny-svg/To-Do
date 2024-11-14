@@ -4,8 +4,10 @@ import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
 import 'package:todo/firebase_functions.dart';
 import 'package:todo/models/taskmodel.dart';
+import 'package:todo/taps/setting/setting_provider.dart';
 import 'package:todo/taps/tasks/task_item.dart';
 import 'package:todo/taps/tasks_provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TasksTap extends StatefulWidget {
   @override
@@ -16,6 +18,7 @@ class _TasksTapState extends State<TasksTap> {
   bool shouldGetTasks = true;
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
     ThemeData theme = Theme.of(context);
@@ -37,7 +40,7 @@ class _TasksTapState extends State<TasksTap> {
                 start: width * 0.1,
                 child: SafeArea(
                   child: Text(
-                    'To Do List',
+                    AppLocalizations.of(context)!.todolist,
                     style: theme.textTheme.bodySmall,
                   ),
                 )),
@@ -58,7 +61,9 @@ class _TasksTapState extends State<TasksTap> {
                     dayStructure: DayStructure.dayStrDayNum,
                     activeDayStyle: DayStyle(
                         decoration: BoxDecoration(
-                            color: AppTheme.white,
+                            color: settingProvider.themeMode == ThemeMode.light
+                                ? AppTheme.white
+                                : AppTheme.darkblue,
                             borderRadius: BorderRadius.circular(5)),
                         monthStrStyle: TextStyle(
                             color: theme.primaryColor,
@@ -75,27 +80,39 @@ class _TasksTapState extends State<TasksTap> {
                         borderRadius: 5),
                     inactiveDayStyle: DayStyle(
                       decoration: BoxDecoration(
-                          color: AppTheme.white,
+                          color: settingProvider.themeMode == ThemeMode.light
+                              ? AppTheme.white
+                              : AppTheme.darkblue,
                           borderRadius: BorderRadius.circular(5)),
                       dayNumStyle: TextStyle(
-                          color: AppTheme.black,
+                          color: settingProvider.themeMode == ThemeMode.light
+                              ? AppTheme.black
+                              : AppTheme.white,
                           fontSize: 15,
                           fontWeight: FontWeight.bold),
                       dayStrStyle: TextStyle(
-                          color: AppTheme.black,
+                          color: settingProvider.themeMode == ThemeMode.light
+                              ? AppTheme.black
+                              : AppTheme.white,
                           fontSize: 15,
                           fontWeight: FontWeight.bold),
                     ),
                     todayStyle: DayStyle(
                       decoration: BoxDecoration(
-                          color: AppTheme.white,
+                          color: settingProvider.themeMode == ThemeMode.light
+                              ? AppTheme.white
+                              : AppTheme.darkblue,
                           borderRadius: BorderRadius.circular(5)),
                       dayNumStyle: TextStyle(
-                          color: AppTheme.black,
+                          color: settingProvider.themeMode == ThemeMode.light
+                              ? AppTheme.black
+                              : AppTheme.white,
                           fontSize: 15,
                           fontWeight: FontWeight.bold),
                       dayStrStyle: TextStyle(
-                          color: AppTheme.black,
+                          color: settingProvider.themeMode == ThemeMode.light
+                              ? AppTheme.black
+                              : AppTheme.white,
                           fontSize: 15,
                           fontWeight: FontWeight.bold),
                     )),
