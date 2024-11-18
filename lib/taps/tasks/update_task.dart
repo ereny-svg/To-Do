@@ -31,9 +31,9 @@ class _UpdateTaskState extends State<UpdateTask> {
         ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
     if (args != null) {
       taskId = args['id'];
-      titlecontroller.text=args['taskTitle'];
-      descriptioncontroller.text=args['taskDescription'];
-      selecteddate=args['date'];
+      titlecontroller.text = args['taskTitle'];
+      descriptioncontroller.text = args['taskDescription'];
+      selecteddate = args['date'];
     }
     double height = MediaQuery.of(context).size.height;
     double width = MediaQuery.of(context).size.width;
@@ -121,11 +121,9 @@ class _UpdateTaskState extends State<UpdateTask> {
                                     firstDate: DateTime.now(),
                                     lastDate: DateTime.now()
                                         .add(Duration(days: 365)));
-                                if (datetime != null &&
-                                    selecteddate != datetime) {
-                                  selecteddate = datetime;
-                                  setState(() {});
-                                }
+
+                                selecteddate = datetime !;
+                                setState(() {});
                               },
                               child: Text(dateFormat.format(selecteddate)))),
                       const SizedBox(
