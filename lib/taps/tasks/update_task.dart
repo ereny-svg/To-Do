@@ -1,11 +1,10 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
-import 'package:todo/firebase_functions.dart';
 import 'package:todo/models/taskmodel.dart';
+
 import 'package:todo/taps/tasks_provider.dart';
 import 'package:todo/widgets/default_elevated_button.dart';
 import 'package:todo/widgets/default_text_form_field.dart';
@@ -27,8 +26,9 @@ class _UpdateTaskState extends State<UpdateTask> {
   DateFormat dateFormat = DateFormat('dd/MM/yyyy');
   @override
   Widget build(BuildContext context) {
+    TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
     final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>?;
+        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
     if (args != null) {
       taskId = args['id'];
       titlecontroller.text = args['taskTitle'];
@@ -36,7 +36,6 @@ class _UpdateTaskState extends State<UpdateTask> {
       selecteddate = args['date'];
     }
     double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     ThemeData theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
@@ -121,9 +120,11 @@ class _UpdateTaskState extends State<UpdateTask> {
                                     firstDate: DateTime.now(),
                                     lastDate: DateTime.now()
                                         .add(Duration(days: 365)));
-
-                                selecteddate = datetime !;
-                                setState(() {});
+                                if (datetime != null &&
+                                    selecteddate != datetime) {
+                                  selecteddate = datetime;
+                                  tasksProvider.ChangeDateTime(selecteddate);
+                                }
                               },
                               child: Text(dateFormat.format(selecteddate)))),
                       const SizedBox(
@@ -133,19 +134,28 @@ class _UpdateTaskState extends State<UpdateTask> {
                           text: 'Save Changes',
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
-                              FirebaseFunctions.UpdateTaskFromFirestore(
-                                      taskId,
-                                      titlecontroller.text,
-                                      descriptioncontroller.text,
-                                      selecteddate)
-                                  .timeout(
-                                Duration(microseconds: 100),
-                                onTimeout: () => Provider.of<TasksProvider>(
-                                        context,
-                                        listen: false)
-                                    .getTasks(),
-                              )
-                                  .catchError((error) {
+                              TaskModel task = TaskModel(
+                                  id: taskId,
+                                  title: titlecontroller.text,
+                                  description: descriptioncontroller.text,
+                                  date: selecteddate);
+                              tasksProvider.updateTask(task).timeout(
+                                Duration(milliseconds: 100),
+                                onTimeout: () {
+                                  Navigator.of(context).pop();
+                                  Provider.of<TasksProvider>(context,
+                                          listen: false)
+                                      .getTasks();
+                                  Fluttertoast.showToast(
+                                      msg: "Task added successfully",
+                                      toastLength: Toast.LENGTH_LONG,
+                                      gravity: ToastGravity.BOTTOM,
+                                      timeInSecForIosWeb: 5,
+                                      backgroundColor: Colors.green,
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                },
+                              ).catchError((error) {
                                 Fluttertoast.showToast(
                                     msg: "Something went wrong",
                                     toastLength: Toast.LENGTH_LONG,
@@ -155,9 +165,6 @@ class _UpdateTaskState extends State<UpdateTask> {
                                     textColor: Colors.white,
                                     fontSize: 16.0);
                               });
-
-                              setState(() {});
-                              Navigator.of(context).pop();
                             }
                           })
                     ]),
