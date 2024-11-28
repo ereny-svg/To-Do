@@ -27,14 +27,10 @@ class _UpdateTaskState extends State<UpdateTask> {
   @override
   Widget build(BuildContext context) {
     TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
-    final args =
-        ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-    if (args != null) {
-      taskId = args['id'];
-      titlecontroller.text = args['taskTitle'];
-      descriptioncontroller.text = args['taskDescription'];
-      selecteddate = args['date'];
-    }
+    final args=ModalRoute.of(context)?.settings.arguments as TaskModel;
+    titlecontroller.text=args.title;
+    descriptioncontroller.text=args.description;
+    taskId=args.id;
     double height = MediaQuery.of(context).size.height;
     ThemeData theme = Theme.of(context);
     return Scaffold(
@@ -122,8 +118,7 @@ class _UpdateTaskState extends State<UpdateTask> {
                                         .add(Duration(days: 365)));
                                 if (datetime != null &&
                                     selecteddate != datetime) {
-                                  selecteddate = datetime;
-                                  tasksProvider.ChangeDateTime(selecteddate);
+                                   selecteddate = datetime;
                                 }
                               },
                               child: Text(dateFormat.format(selecteddate)))),
