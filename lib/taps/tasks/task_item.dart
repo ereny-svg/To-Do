@@ -60,14 +60,8 @@ class _TaskItemState extends State<TaskItem> {
         ),
         child: GestureDetector(
           onTap: () {
-            Map<String, dynamic> taskData = {
-              'id': widget.task.id,
-              'taskTitle': widget.task.title,
-              'taskDescription': widget.task.description,
-              'date': widget.task.date,
-            };
             Navigator.of(context)
-                .pushNamed(UpdateTask.routename, arguments: taskData);
+                .pushNamed(UpdateTask.routename, arguments: widget.task);
           },
           child: Container(
             padding: const EdgeInsets.all(20),

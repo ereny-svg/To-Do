@@ -39,13 +39,12 @@ class FirebaseFunctions {
     });
   }
 
-  static Future<void> UpdateTaskFromFirestore(
-      String taskId, String title, String description, DateTime date) async {
+   static Future<void> updateTaskToFirestore(TaskModel task) {
     CollectionReference<TaskModel> tasksCollection = getTasksCollection();
-    return tasksCollection.doc(taskId).update({
-      'title': title,
-      'description': description,
-      'date': Timestamp.fromDate(date),
+    return tasksCollection.doc(task.id).update({
+      'title': task.title,
+      'description': task.description,
+      'date': Timestamp.fromDate(task.date),
     });
   }
 }
