@@ -122,7 +122,7 @@ class _UpdateTaskState extends State<UpdateTask> {
                                     lastDate: DateTime.now()
                                         .add(Duration(days: 365)));
 
-                                selecteddate = datetime !;
+                                selecteddate = datetime!;
                                 setState(() {});
                               },
                               child: Text(dateFormat.format(selecteddate)))),
