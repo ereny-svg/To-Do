@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todo/app_theme.dart';
 import 'package:todo/auth/login_screen.dart';
+import 'package:todo/taps/setting/setting_provider.dart';
 import 'package:todo/widgets/default_elevated_button.dart';
 import 'package:todo/widgets/default_text_form_field.dart';
 
@@ -17,6 +20,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Register'),
@@ -36,6 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     return null;
                   },
                   controller: nameController,
+                  
                   hinttext: 'Name'),
               const SizedBox(
                 height: 16,
@@ -48,6 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     return null;
                   },
                   controller: emailController,
+                 
                   hinttext: 'Email'),
               const SizedBox(
                 height: 16,
@@ -61,6 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   },
                   isPassword: true,
                   controller: PasswordController,
+                  
                   hinttext: 'Password'),
               const SizedBox(
                 height: 32,

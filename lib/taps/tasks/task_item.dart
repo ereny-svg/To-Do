@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:todo/app_theme.dart';
 import 'package:todo/firebase_functions.dart';
 import 'package:todo/models/taskmodel.dart';
+import 'package:todo/taps/setting/setting_provider.dart';
 import 'package:todo/taps/tasks/update_task.dart';
 import 'package:todo/taps/tasks_provider.dart';
 import 'package:todo/widgets/isdone.dart';
@@ -21,6 +22,7 @@ class TaskItem extends StatefulWidget {
 class _TaskItemState extends State<TaskItem> {
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     bool isDone = widget.task.isDone;
     ThemeData theme = Theme.of(context);
     return Container(
@@ -66,7 +68,10 @@ class _TaskItemState extends State<TaskItem> {
             height: 115,
             width: 352,
             decoration: BoxDecoration(
-                color: AppTheme.white, borderRadius: BorderRadius.circular(15)),
+                color: settingProvider.themeMode == ThemeMode.light
+                    ? AppTheme.white
+                    : AppTheme.darkblue,
+                borderRadius: BorderRadius.circular(15)),
             child: Row(children: [
               Container(
                 height: 62,
