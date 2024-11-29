@@ -26,6 +26,11 @@ class _DefaultTextFormFieldState extends State<DefaultTextFormField> {
   Widget build(BuildContext context) {
     SettingProvider settingProvider = Provider.of<SettingProvider>(context);
     return TextFormField(
+      style: TextStyle(
+        color:settingProvider.themeMode == ThemeMode.light
+                        ? AppTheme.black
+                        : AppTheme.white,
+      ),
       obscureText: obscureText,
       validator: widget.validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
