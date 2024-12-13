@@ -18,7 +18,6 @@ class UpdateTask extends StatefulWidget {
 }
 
 class _UpdateTaskState extends State<UpdateTask> {
-  
   late String taskId;
   var formKey = GlobalKey<FormState>();
   TextEditingController titlecontroller = TextEditingController();
@@ -28,10 +27,11 @@ class _UpdateTaskState extends State<UpdateTask> {
   @override
   Widget build(BuildContext context) {
     TasksProvider tasksProvider = Provider.of<TasksProvider>(context);
-    final args = ModalRoute.of(context)?.settings.arguments as TaskModel;
-    titlecontroller.text = args.title;
-    descriptioncontroller.text = args.description;
-    taskId = args.id;
+    final task = ModalRoute.of(context)?.settings.arguments as TaskModel;
+    taskId = task.id;
+    titlecontroller.text = task.title;
+    descriptioncontroller.text = task.description;
+
     double height = MediaQuery.of(context).size.height;
     ThemeData theme = Theme.of(context);
     return Scaffold(
@@ -121,7 +121,6 @@ class _UpdateTaskState extends State<UpdateTask> {
                                   if (datetime != null &&
                                       selecteddate != datetime) {
                                     selecteddate = datetime;
-                                   
                                   }
                                 },
                                 child: Text(dateFormat.format(selecteddate)))),
